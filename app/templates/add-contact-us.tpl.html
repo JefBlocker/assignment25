@@ -1,0 +1,24 @@
+<h3>{{ vm.contactUs }}</h3>
+
+<form name="contactUs" ng-submit="vm-addContactUs(ContactUs)">
+
+
+<input name="fullname" placeholder="Sally Smith" ng-model="ContactUs.name" required>
+
+<p class="error" ng-show="contactUs.fullname.$error.required"> {{ vm.msgfullname }}</p>
+
+
+<input name="fullemail" type="email" placeholder="ssmith@gmail.com" ng-model="ContactUs.email" required>
+<p>Email must contain an '@'</p>
+
+<p class="error" ng-show="contactUs.fullemail.$error.required"> {{ vm.msgfullemail }}</p>
+
+
+<input name="fullwebsite" type="url" placeholder="http://mssmith.net" ng-model="ContactUs.website" required>
+<p class="error" ng-show="contactUs.fullwebsite.$error.required"> {{ vm.msgfullwebsite }}</p>
+
+<input name="fullmessage" placeholder="A friendly message ..." ng-model="ContactUs.message" required>
+<p class="error" ng-show="contactUs.fullmessage.$error.required"> {{ vm.msgfullmessage }}</p>
+
+<button ng-click="submit">Submit</button>
+</form>
