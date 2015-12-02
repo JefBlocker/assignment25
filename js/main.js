@@ -4,8 +4,8 @@ import 'angular-ui-router';
 import config from './config';
 
 import HomeController from './controllers/home.controller';
-import ContactUsController from './controllers.contact-us.controller'
-import AddContactUsController from './controllers.add-contact-us.controller'
+import ContactUsController from './controllers/contact-us.controller';
+import AddContactUsController from './controllers/add-contact-us.controller';
 
 import PARSE from './constants/parse.constant';
 
@@ -17,6 +17,6 @@ angular
   .constant('PARSE', PARSE)
   .controller('HomeController', HomeController)
   .controller('ContactUsController', ContactUsController)
-  .controller('AddContactUsController' AddContactUsController)
+  .controller('AddContactUsController', AddContactUsController)
   .service('ContactUsService', ContactUsService)
 ;

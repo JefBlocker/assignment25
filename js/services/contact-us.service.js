@@ -16,11 +16,13 @@ let ContactUsService = function($http, PARSE) {
     return $http.get(url, PARSE.CONFIG);
   }
 
-  function addContactUs (ContactUsObj) {
-    let c = new ContactUs(ContactUsObj);
-    return $http.post(url, c, PARSE.CONFIG);
-  }
+  function getComments (id) {
+    return $http.get(url + '/' + id, PARSE.CONFIG);
 
+  function addContactUs (ContactUsObj) {
+    let newContactUs = new ContactUs(ContactUsObj);
+    return $http.post(url, newContactUs, PARSE.CONFIG);
+  }
 
 };
 

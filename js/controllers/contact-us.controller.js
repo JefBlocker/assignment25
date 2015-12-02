@@ -1,9 +1,19 @@
-let ContactUsController = function() {
+let CommentsController = function(CommentsService) {
 
   let vm = this;
 
+  vm.comments = [];
+
+  activate();
+
+  function activate () {
+    CommentsService.getAllComments().then( (res) => {
+      vm.comments = res.data.results;
+    });
+  }
+
 };
 
-ContactUsController.$inject = [];
+CommentsController.$inject = [];
 
-export default ContactUsController;
+export default CommentsController;

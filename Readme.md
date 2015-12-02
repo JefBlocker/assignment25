@@ -1,6 +1,36 @@
-## Welcome to My Project
+## Welcome to Assignment 25: AngularJS Contact Form
 
-> I am your Readme.md file, you should probably update me.
+
+Learning Objectives
+
+Understand how to do form validation using angular models.
+Understand how to add smooth transitions into an application.
+Understand how to make use of the Angular Style Guide
+Details
+
+
+Deliverables
+
+A link to your repo
+A deployed version on `surge.sh
+
+
+Details
+
+I created a contact form with the following fields: name, email, website and message, as well as a submit button. The form validates all of the form fields and show any and all errors in the form data.
+
+Upon clicking the submit button, valid information is sent to Parse. 
+
+The Comments state displays all of the comments in a nicely styled fashion.
+
+Examples of Errors
+
+- Name cannot be left empty
+- Email cannot be left empty
+- Email must contain an @
+- Website cannot be left empty
+- Website must start with http:// or https:// - help
+- Message cannot be left empty
 
 
 ## Usage

@@ -11,6 +11,18 @@ var config = function config($stateProvider, $urlRouterProvider) {
   $stateProvider.state('root', {
     abstract: true,
     templateUrl: 'templates/layout.tpl.html'
+  }).state('root.home', {
+    url: '/',
+    controller: 'HomeController as vm',
+    templateUrl: 'templates/home.tpl.html'
+  }).state('root.addContactUs', {
+    url: '/ContactUs/add',
+    controller: 'AddContactUsController as vm',
+    templateUrl: 'templates/add-contact-us.tpl.html'
+  }).state('root.comments', {
+    url: '/Comments',
+    controller: 'CommentsController as vm',
+    templateUrl: 'templates/comments.tpl.html'
   });
 };
 
@@ -20,19 +32,85 @@ exports['default'] = config;
 module.exports = exports['default'];
 
 },{}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
-// export default {
-//   URL: 'https://api.parse.com/1/',
-//   CONFIG: {
-//     headers: {
-//       'X-Parse-Application-Id': 'ilG147NEUciDHqCmOjRXdgrcsAVahIzptbcBoW0E',
-//       'X-Parse-REST-API-Key': 'bWtSx1SnyAmiMYBwH55YA0avTKtNWJfMhjruQCzM',
-//     }
-//   }
-// };
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports['default'] = {
+  URL: 'https://api.parse.com/1/',
+  CONFIG: {
+    headers: {
+      'X-Parse-Application-Id': 'ilG147NEUciDHqCmOjRXdgrcsAVahIzptbcBoW0E',
+      'X-Parse-REST-API-Key': 'bWtSx1SnyAmiMYBwH55YA0avTKtNWJfMhjruQCzM'
+    }
+  }
+};
+module.exports = exports['default'];
 
 },{}],3:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var AddContactUsController = function AddContactUsController(ContactUsService) {
+
+  var vm = this;
+
+  vm.msgname = "Name cannot be left empty";
+
+  vm.msgemail = "Email must contain at '@'";
+
+  vm.msgwebsite = "Website cannot be left empty and must start with http:// or https://";
+
+  vm.msgmessage = "Message cannot be left empty";
+
+  vm.msg = "";
+  vm.count = 0;
+
+  vm.addContactUs = addContactUs;
+
+  function addContactUs(ContactUsObj) {
+    ContactUsService.addContactUs(ContactUsObj).then(function (res) {
+      console.log(res);
+    });
+  }
+};
+
+AddContactUsController.$inject = ['ContactUsService'];
+
+exports["default"] = AddContactUsController;
+module.exports = exports["default"];
+
+},{}],4:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var CommentsController = function CommentsController(CommentsService) {
+
+  var vm = this;
+
+  vm.comments = [];
+
+  activate();
+
+  function activate() {
+    CommentsService.getAllComments().then(function (res) {
+      vm.comments = res.data.results;
+    });
+  }
+};
+
+CommentsController.$inject = [];
+
+exports["default"] = CommentsController;
+module.exports = exports["default"];
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -44,7 +122,7 @@ var HomeController = function HomeController(PARSE) {
 
   var vm = this;
 
-  vm.title = 'Home';
+  vm.title = 'Home Page';
 };
 
 HomeController.$inject = ['PARSE'];
@@ -52,7 +130,7 @@ HomeController.$inject = ['PARSE'];
 exports['default'] = HomeController;
 module.exports = exports['default'];
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -63,29 +141,68 @@ var _angular2 = _interopRequireDefault(_angular);
 
 require('angular-ui-router');
 
-// Import Config, Run & Constant, Value Blocks
-
 var _config = require('./config');
 
 var _config2 = _interopRequireDefault(_config);
-
-// Import Controllers
 
 var _controllersHomeController = require('./controllers/home.controller');
 
 var _controllersHomeController2 = _interopRequireDefault(_controllersHomeController);
 
-// Import Constants
+var _controllersContactUsController = require('./controllers/contact-us.controller');
+
+var _controllersContactUsController2 = _interopRequireDefault(_controllersContactUsController);
+
+var _controllersAddContactUsController = require('./controllers/add-contact-us.controller');
+
+var _controllersAddContactUsController2 = _interopRequireDefault(_controllersAddContactUsController);
 
 var _constantsParseConstant = require('./constants/parse.constant');
 
 var _constantsParseConstant2 = _interopRequireDefault(_constantsParseConstant);
 
-// Import Services
+var _servicesContactUsService = require('./services/contact-us.service');
 
-_angular2['default'].module('app', ['ui.router']).config(_config2['default']).constant('PARSE', _constantsParseConstant2['default']).controller('HomeController', _controllersHomeController2['default']);
+var _servicesContactUsService2 = _interopRequireDefault(_servicesContactUsService);
 
-},{"./config":1,"./constants/parse.constant":2,"./controllers/home.controller":3,"angular":7,"angular-ui-router":5}],5:[function(require,module,exports){
+_angular2['default'].module('app', ['ui.router']).config(_config2['default']).constant('PARSE', _constantsParseConstant2['default']).controller('HomeController', _controllersHomeController2['default']).controller('ContactUsController', _controllersContactUsController2['default']).controller('AddContactUsController', _controllersAddContactUsController2['default']).service('ContactUsService', _servicesContactUsService2['default']);
+
+},{"./config":1,"./constants/parse.constant":2,"./controllers/add-contact-us.controller":3,"./controllers/contact-us.controller":4,"./controllers/home.controller":5,"./services/contact-us.service":7,"angular":10,"angular-ui-router":8}],7:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var ContactUsService = function ContactUsService($http, PARSE) {
+
+  var url = PARSE.URL + 'classes/contactus';
+
+  this.getAllContacts = getAllContacts;
+  this.addContactUs = addContactUs;
+
+  function ContactUs(ContactUsObj) {
+    this.name = ContactUsObj.name;
+    this.email = ContactUsObj.email;
+    this.website = ContactUsObj.website;
+    this.message = ContactUsObj.message;
+  }
+
+  function getAllContacts() {
+    return $http.get(url, PARSE.CONFIG);
+  }
+
+  function addContactUs(ContactUsObj) {
+    var newContactUs = new ContactUs(ContactUsObj);
+    return $http.post(url, newContactUs, PARSE.CONFIG);
+  }
+};
+
+ContactUsService.$inject = ['$http', 'PARSE'];
+
+exports['default'] = ContactUsService;
+module.exports = exports['default'];
+
+},{}],8:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.15
@@ -4456,7 +4573,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],6:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.7
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -33361,11 +33478,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":6}]},{},[4])
+},{"./angular":9}]},{},[6])
 
 
 //# sourceMappingURL=main.js.map

@@ -1,24 +1,25 @@
-<h3>{{ vm.contactUs }}</h3>
+<h3>Contact Us</h3>
 
-<form name="contactUs" ng-submit="vm-addContactUs(ContactUs)">
+<form name="contactUs" ng-submit="vm.addContactUs(ContactUs)">
 
+  <label>Name<input name="name" placeholder="Sally Smith" ng-model="ContactUs.name" required class="textBox"></label>
 
-<input name="fullname" placeholder="Sally Smith" ng-model="ContactUs.name" required>
-
-<p class="error" ng-show="contactUs.fullname.$error.required"> {{ vm.msgfullname }}</p>
-
-
-<input name="fullemail" type="email" placeholder="ssmith@gmail.com" ng-model="ContactUs.email" required>
-<p>Email must contain an '@'</p>
-
-<p class="error" ng-show="contactUs.fullemail.$error.required"> {{ vm.msgfullemail }}</p>
+  <p class="error" ng-show="contactUs.name.$error.required"> {{ vm.msgname }}</p>
 
 
-<input name="fullwebsite" type="url" placeholder="http://mssmith.net" ng-model="ContactUs.website" required>
-<p class="error" ng-show="contactUs.fullwebsite.$error.required"> {{ vm.msgfullwebsite }}</p>
+  <label>Email<input name="email" type="email" placeholder="ssmith@gmail.com" ng-model="ContactUs.email" required class="textBox"></label>
+  
+  <p class="error" ng-show="contactUs.email.$error.required"> {{ vm.msgemail }}</p>
 
-<input name="fullmessage" placeholder="A friendly message ..." ng-model="ContactUs.message" required>
-<p class="error" ng-show="contactUs.fullmessage.$error.required"> {{ vm.msgfullmessage }}</p>
 
-<button ng-click="submit">Submit</button>
+  <label>Website</label><input name="website" type="url" placeholder="http://mssmith.net" ng-model="ContactUs.website" required class="textBox">
+
+  <p class="error" ng-show="contactUs.website.$error.required"> {{ vm.msgwebsite }}</p>
+
+
+  <label>Message</label><textarea cols="50" rows="4" name="message" placeholder="Tell us how you feel ..." ng-model="ContactUs.message" required></textarea>
+
+  <p class="error" ng-show="contactUs.message.$error.required"> {{ vm.msgmessage }}</p>
+
+<button ng-click="Send">Send</button>
 </form>

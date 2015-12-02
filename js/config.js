@@ -7,22 +7,24 @@ let config = function($stateProvider, $urlRouterProvider) {
       abstract: true,
       templateUrl: 'templates/layout.tpl.html'
     })
+
       .state('root.home', {
         url: '/',
-        controller: 'HomeController as vm'
+        controller: 'HomeController as vm',
         templateUrl: 'templates/home.tpl.html'
       })
-      .state('root.contactus', {
-        url: '/contactus',
-        controller: 'ContactUsController as vm',
-        templateUrl: 'templates/contact-us.tpl.html'
-      })
-      .state('root.addcontactus', {
-        url: '/addcontactus', 
+
+      .state('root.addContactUs', {
+        url: '/ContactUs/add', 
         controller: 'AddContactUsController as vm',
         templateUrl: 'templates/add-contact-us.tpl.html',
-      });
+      })
 
+      .state('root.comments', {
+        url: '/Comments', 
+        controller: 'CommentsController as vm',
+        templateUrl: 'templates/comments.tpl.html',
+      });
 
 };
 

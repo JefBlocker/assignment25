@@ -1,6 +1,50 @@
-// Put any @imports here
-// See Readme for a list of supported ones
+@import "foundation";
 
 body {
-  background: #e2ebf3;
+  background: #EBE54D;
+  color: #757449;
+  position: relative;
+}
+
+.container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+.contactUs {
+  transition:0.5s linear all;
+  background: white;
+}
+
+h1, h3 {
+  color: #4B490B;
+}
+
+p.error {
+  font-weight: bold;
+  color: red;
+}
+
+.textBox {
+  border-radius: 5px;
+  background-color: #E2DF9A; 
+}
+
+textarea {
+  border-radius: 5px;
+  background-color: #E2DF9A; 
+}
+
+button {
+  background-color: #4B490B;
+  color: #E2DF9A;
+  border: 1px solid #E2DF9A;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #E2DF9A;
+  color: #4B490B;
+  border: 1px solid #4B490B;
+  border-radius: 5px; 
 }
